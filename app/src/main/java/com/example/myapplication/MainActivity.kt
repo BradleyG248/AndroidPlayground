@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
@@ -17,16 +18,25 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         Timer("settingUp", false).scheduleAtFixedRate(0, 1000){autoMine()}
+        store.subscribe("cheese", ::drawCheese)
+
     }
-    fun click(view: View) {
+    fun click(view:View) {
         controller.mineCheese()
+        drawCheese()
     }
     fun autoMine(){
         controller.autoMine()
+//        drawCheese()
     }
     fun drawCheese(){
         val message: String = "" + store.state().cheese + " cheese"
         val textView = findViewById<TextView>(R.id.textView)
-        textView.setText(message)
+        textView.text = message
     }
+    fun drawMiners(){
+
+    }
+
 }
+
